@@ -10,7 +10,6 @@ This is a solution to the [Kanban task management web app challenge on Frontend 
     - [Links](#links)
 - [My process](#my-process)
     - [Built with](#built-with)
-    - [What I learned](#what-i-learned)
     - [Continued development](#continued-development)
     - [Useful resources](#useful-resources)
 - [Author](#author)
@@ -40,8 +39,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: https://github.com/amjadsh97/link-sharing-app
-- Live Site URL: https://link-sharing-app-ten-silk.vercel.app/
+- Solution URL: https://github.com/amjadsh97/kanban-task-management-web-app
+- Live Site URL: https://kanban-task-management-web-app-lake.vercel.app/
 
 ## My process
 
@@ -59,95 +58,6 @@ Users should be able to:
 - [ant design](https://ant.design/components/overview/) - UI components.
 - [Redux](https://redux.js.org/introduction/getting-started) - store management.
 
-
-### What I learned
-
-
-```js
-//Function to handle the image and store it as string (base-46)
-const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-	const file = event.target.files?.[0];
-	if (file) {
-		const reader = new FileReader();
-		reader.onload = (e) => {
-			const result = e.target?.result;
-			if (result !== undefined) {
-				setProfileImage(result as string | ArrayBuffer); // Ensure result is not undefined
-			}
-		};
-		reader.readAsDataURL(file);
-	}
-};
-
-//function to handle links and  user data and save it 
-const handleSaveUserData = async () => {
-	const auth = getAuth();
-
-	const updatedLinks = links.map(link => ({
-		...link,
-		...validateUrl(link.platform || '', link.url || '')
-	}));
-
-	setLinks(updatedLinks);
-
-	const allValid = updatedLinks.every(link => link.platformValidationMessage === '' && link.urlValidationMessage === '');
-	if (!allValid) {
-		console.log('Some URLs or platforms are invalid. Please correct them before saving.');
-		return;
-	}
-
-	if (document.querySelector("body")?.classList.contains("show-profile")) {
-		if (!userData.firstName || !userData.lastName) {
-			setErrors({
-				firstName: !userData.firstName ? 'Please enter your first name' : '',
-				lastName: !userData.lastName ? 'Please enter your last name' : '',
-			});
-			return;
-		}
-	}
-
-	onAuthStateChanged(auth, async (user) => {
-
-		if (user) {
-
-			const userId = user.uid;
-
-			try {
-				const userDocRef = doc(db, 'users', userId);
-
-				// Fetch existing user data
-				const userDocSnap = await getDoc(userDocRef);
-				const existingData = userDocSnap.exists() ? userDocSnap.data() : {};
-
-				// Combine existing data with new data without duplicates
-				const existingLinks = existingData.links || [];
-				const newLinks = updatedLinks.filter(link =>
-					!existingLinks.some((existingLink:LinkProps) => existingLink.url === link.url)
-				);
-
-				const newUserData = {
-					...existingData,
-					additionalData: userData, // Ensure userData is defined elsewhere in your code
-					links: [...existingLinks, ...newLinks], // Merge without duplicates
-					profileImage // Add the profileImage
-				};
-
-				// Set the user document with the combined data
-				await setDoc(userDocRef, newUserData);
-
-				console.log('Data successfully written!');
-				showToast(<span><img src={iconSaved} alt=""/> Your changes have been successfully saved!</span>);
-
-			} catch (e) {
-				console.error('Error adding data: ', e);
-			}
-		} else {
-			console.error('User is not authenticated.');
-		}
-	});
-};
-
-```
 
 ### Continued development
 
