@@ -4,12 +4,7 @@ import reducer from '../reducer';
 import localStorageMiddleware from "../../localStorage";
 import {setInitialState} from "../actions";
 
-const delayMiddleware = (store: any) => (next: any) => (action: any) => {
-  // Add a delay of 1 second (1000 milliseconds)
-  setTimeout(() => {
-    next(action);
-  }, 1000);
-};
+
 
 const persistedState = localStorage.getItem('reduxState')
   ? JSON.parse(localStorage.getItem('reduxState') as string)
