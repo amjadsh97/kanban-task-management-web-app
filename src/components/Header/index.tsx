@@ -1,4 +1,3 @@
-// @ts-ignore
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import logoDark from "../../assets/images/logo-dark.svg";
@@ -8,13 +7,14 @@ import {iconAddTaskMobile, iconChevronDown, iconChevronUp, iconVerticalEllipsis}
 import "./style.css";
 import {Dropdown, MenuProps, Modal} from "antd";
 import AddBoardModal from "../BoardModal";
+// @ts-ignore
 import {RootState} from "../../redux/reducers"; // Adjust the path according to your structure
-import {deleteBoard, updateBoard} from "../../redux/actions"; // Adjust according to your action structure
+import {deleteBoard} from "../../redux/actions"; // Adjust according to your action structure
 
 interface HeaderProps {
   openModal: (type: "view" | "edit" | "delete" | "add", task?: any) => void;
   activeBoardIndex: any;
-  setMobileDropdownTrigger: React.Dispatch<React.SetStateAction<string>>
+  setMobileDropdownTrigger: React.Dispatch<React.SetStateAction<boolean>>
   mobileDropdownTrigger: boolean;
 }
 
@@ -27,7 +27,6 @@ const Header: React.FC<HeaderProps> = ({
                                        }) => {
   const [editBoardModalOpen, setEditBoardModalOpen] = useState(false);
   const [deleteBoardModalOpen, setDeleteBoardModalOpen] = useState(false);
-  const [boardTitle, setBoardTitle] = useState("");
   const dispatch = useDispatch();
   const boards = useSelector((state: RootState) => state.boards); // Adjust selector according to your state structure
   const currentBoard = boards[activeBoardIndex]; // Adjust according to how you determine the current board
@@ -58,6 +57,7 @@ const Header: React.FC<HeaderProps> = ({
 
   const handleDelete = () => {
     console.log(currentBoard)
+    // @ts-ignore
     dispatch(deleteBoard(activeBoardIndex)); // Ensure you have the correct board ID
     setDeleteBoardModalOpen(false);
   };
@@ -66,14 +66,7 @@ const Header: React.FC<HeaderProps> = ({
     setDeleteBoardModalOpen(false);
   };
 
-  const handleEditBoard = (title: string) => {
-    const updatedBoard = {
-      title,
-      columns: currentBoard.columns,
-    };
-    dispatch(updateBoard(activeBoardIndex, updatedBoard)); // Ensure you have the correct board ID and updated title
-    setEditBoardModalOpen(false);
-  };
+
 
   return (
     <header className='header'>

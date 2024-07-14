@@ -6,6 +6,7 @@ import { Modal } from "antd";
 import { iconCross } from "../../assets/icons";
 import Button from "../Button";
 import "./style.css";
+// @ts-ignore
 import { RootState } from '../../redux/reducers'; // Adjust the path according to your structure
 
 interface AddBoardModalProps {
@@ -16,7 +17,7 @@ interface AddBoardModalProps {
   boardIndex?: number; // Add this prop to identify the board being edited
 }
 
-const AddBoardModal: React.FC<AddBoardModalProps> = ({ type = "add", isOpen, onClose, onSave, boardIndex }) => {
+const AddBoardModal: React.FC<AddBoardModalProps> = ({ type = "add", isOpen, onClose, boardIndex }) => {
   const boards = useSelector((state: RootState) => state.boards);
   const [boardTitle, setBoardTitle] = useState('');
   const [columns, setColumns] = useState<string[]>(['']);
@@ -27,7 +28,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ type = "add", isOpen, onC
       const board = boards[boardIndex];
       if (board) {
         setBoardTitle(board.name);
-        setColumns(board.columns.map(column => column.name));
+        setColumns(board.columns.map((column:any) => column.name));
       }
     } else {
       setBoardTitle('');
@@ -43,7 +44,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ type = "add", isOpen, onC
       return;
     }
 
-    if (type === "add" && boards.some(board => board.name && board.name.toLowerCase() === trimmedTitle.toLowerCase())) {
+    if (type === "add" && boards.some((board:any) => board.name && board.name.toLowerCase() === trimmedTitle.toLowerCase())) {
       alert("Board title already exists.");
       return;
     }
@@ -61,8 +62,10 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ type = "add", isOpen, onC
           tasks: boards[boardIndex].columns[index]?.tasks || [],
         })),
       };
+      // @ts-ignore
       dispatch(updateBoard(boardIndex, updatedBoard));
     } else {
+      // @ts-ignore
       dispatch(addBoard({ name: trimmedTitle, columns: columns.map(name => ({ name, tasks: [] })) }));
     }
 

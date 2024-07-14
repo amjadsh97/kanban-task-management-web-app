@@ -75,7 +75,7 @@ export interface AddBoardAction {
   type: typeof ADD_BOARD;
   payload: {
     board: {
-      title: string;
+      name: string;
       columns: {
         title: string;
         tasks: Task[];

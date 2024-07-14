@@ -15,7 +15,7 @@ import "./styles/reset.css";
 import "./styles/App.css";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./redux/store";
-import { deleteTask, updateTask, addBoard, addColumn} from "./redux/actions";
+import {updateTask, addBoard} from "./redux/actions";
 import TaskModal from "./components/TaskModal";
 import AddBoardModal from "./components/BoardModal";
 import {initialData} from "./types";
@@ -27,7 +27,6 @@ function App() {
   const [modalType, setModalType] = useState<"view" | "edit" | "delete" | "add">("view");
   const [selectedTask, setSelectedTask] = useState<any>(null);
   const [addBoardModalOpen, setAddBoardModalOpen] = useState(false);
-  const [addColumnModalOpen, setAddColumnModalOpen] = useState(false);
 
   const data = useSelector((state: RootState) => state);
   const boards = data.boards
@@ -64,24 +63,18 @@ function App() {
 
 
   const handleUpdateTask = (updatedTask: any) => {
+    // @ts-ignore
     dispatch(updateTask(boardIndex, columnIndex, taskIndex, updatedTask));
     closeTaskModal();
   };
 
-  const handleDeleteTask = () => {
-    dispatch(deleteTask(boardIndex, columnIndex, taskIndex));
-    closeTaskModal();
-  };
 
   const handleAddBoard = (boardName: string) => {
+    // @ts-ignore
     dispatch(addBoard({name: boardName, columns: []}));
     setAddBoardModalOpen(false);
   };
 
-  const handleAddColumn = (columnName: string) => {
-    dispatch(addColumn(activeBoard, {name: columnName, tasks: []}));
-    setAddColumnModalOpen(false);
-  };
 
   useEffect(() => {
     if (!localStorage.getItem("reduxState")) {
@@ -98,8 +91,10 @@ function App() {
   }, [theme])
 
   return (
-    <div className={`app ${showSidebar ? "sidebar-opened" : ""} ${theme === "dark" ? "dark" : ""}  ${mobileDropdownTrigger ? "mobile-dropdown-opened" : ""}`}>
-      <Header  mobileDropdownTrigger={mobileDropdownTrigger} setMobileDropdownTrigger={setMobileDropdownTrigger} activeBoardIndex={activeBoard} openModal={(type, task) => openModal(type, task)}/>
+    <div
+      className={`app ${showSidebar ? "sidebar-opened" : ""} ${theme === "dark" ? "dark" : ""}  ${mobileDropdownTrigger ? "mobile-dropdown-opened" : ""}`}>
+      <Header mobileDropdownTrigger={mobileDropdownTrigger} setMobileDropdownTrigger={setMobileDropdownTrigger}
+              activeBoardIndex={activeBoard} openModal={(type, task) => openModal(type, task)}/>
       <aside className='sidebar'>
         <div className="sidebar-inner">
           <h1 className="logo">
@@ -160,10 +155,10 @@ function App() {
       </div>
       <main className='main'>
         <div className='columns-wrapper'>
-          {data.boards[activeBoard]?.columns.map((column, columnIndex) => (
+          {data.boards[activeBoard]?.columns.map((column: any, columnIndex: any) => (
             <div key={columnIndex} className='column'>
               <h3 className='column-title'>{column.name}</h3>
-              {column.tasks.map((task, taskIndex) => (
+              {column.tasks.map((task: any, taskIndex: any) => (
                 <div
                   key={taskIndex}
                   className='task-item'
@@ -171,7 +166,7 @@ function App() {
                 >
                   <h4 className='task-title'>{task.title}</h4>
                   <p
-                    className='subtasks-status'>{task.subtasks.filter(item => item.isCompleted).length} of {task.subtasks.length} subtasks</p>
+                    className='subtasks-status'>{task.subtasks.filter((item:any) => item.isCompleted).length} of {task.subtasks.length} subtasks</p>
                 </div>
               ))}
             </div>

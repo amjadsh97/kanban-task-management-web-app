@@ -1,4 +1,3 @@
-// @ts-ignore
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addColumn } from '../../redux/actions';
@@ -12,6 +11,7 @@ const AddColumnModal: React.FC<{ isOpen: boolean, onClose: () => void, boardInde
 
   const handleAddColumn = () => {
     if (columnTitle.trim()) {
+      // @ts-ignore
       dispatch(addColumn(boardIndex, { name: columnTitle, tasks: [] }));
       setColumnTitle('');
       onClose();

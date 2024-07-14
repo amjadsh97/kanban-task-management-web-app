@@ -1,5 +1,4 @@
-// @ts-ignore
-import { Board } from "../data";
+import {Board} from "../types";
 
 export const getUniqueStatuses = (boards: Board[], boardIndex: number): string[] => {
   const storedData = localStorage.getItem("reduxState");
@@ -24,9 +23,9 @@ export const getUniqueStatuses = (boards: Board[], boardIndex: number): string[]
   const selectedBoard = parsedBoards[boardIndex];
 
   const statuses = new Set<string>();
-  selectedBoard.columns.forEach(column => {
+  selectedBoard.columns.forEach((column:any) => {
     statuses.add(column.name); // Add column name as a status
-    column.tasks.forEach(task => {
+    column.tasks.forEach((task:any) => {
       statuses.add(task.status);
     });
   });

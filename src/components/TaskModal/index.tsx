@@ -1,8 +1,9 @@
 // @ts-ignore
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect} from "react";
+// @ts-ignore
 import {Task} from "../../data";
 import "./style.css";
-import {Dropdown, MenuProps, Select, Modal, Input} from "antd";
+import {Dropdown, MenuProps, Select, Modal} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import {addTask, deleteTask, updateTask} from "../../redux/actions";
 import {RootState} from "../../redux/store";
@@ -55,6 +56,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
 
   const handleDeleteTask = (e: React.MouseEvent) => {
     e.stopPropagation();
+    // @ts-ignore
     dispatch(deleteTask(boardIndex, columnIndex, taskIndex));
     onClose(); // Optionally close the modal after deleting the task
   };
@@ -75,6 +77,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
       const updatedTask = {...modalTask, status: value};
       setModalTask(updatedTask);
       if (type !== "add") {
+        // @ts-ignore
         dispatch(updateTask(boardIndex, columnIndex, taskIndex, updatedTask));
       }
     }
@@ -87,6 +90,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
       const updatedTask = {...modalTask, subtasks: newSubtasks};
       setModalTask(updatedTask);
       if (type !== "add") {
+        // @ts-ignore
         dispatch(updateTask(boardIndex, columnIndex, taskIndex, updatedTask));
       }
     }
@@ -97,6 +101,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
       const updatedTask = {...modalTask, [e.target.name]: e.target.value};
       setModalTask(updatedTask);
       if (type !== "add") {
+        // @ts-ignore
         dispatch(updateTask(boardIndex, columnIndex, taskIndex, updatedTask));
       }
     }
@@ -107,8 +112,8 @@ const TaskModal: React.FC<TaskModalProps> = ({
       const newErrors: { title?: string; description?: string; subtasks?: string[] } = {};
       if (!modalTask.title.trim()) newErrors.title = "Title cannot be empty.";
       if (!modalTask.description.trim()) newErrors.description = "Description cannot be empty.";
-      if (modalTask.subtasks.some(subtask => !subtask.title.trim())) {
-        newErrors.subtasks = modalTask.subtasks.map(subtask =>
+      if (modalTask.subtasks.some((subtask:any) => !subtask.title.trim())) {
+        newErrors.subtasks = modalTask.subtasks.map((subtask:any) =>
           !subtask.title.trim() ? "Subtask title cannot be empty." : ""
         );
       }
@@ -119,6 +124,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
       }
 
       if (type === "add") {
+        // @ts-ignore
         dispatch(addTask(boardIndex, columnIndex, modalTask));
       } else {
         onSave(modalTask);
@@ -136,7 +142,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
 
   const handleSubtaskChange = (index: number, value: string) => {
     if (modalTask) {
-      const updatedSubtasks = modalTask.subtasks.map((subtask, i) =>
+      const updatedSubtasks = modalTask.subtasks.map((subtask:any, i:any) =>
         i === index ? {...subtask, title: value} : subtask
       );
       setModalTask({...modalTask, subtasks: updatedSubtasks});
@@ -152,7 +158,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
 
   const handleRemoveSubtask = (index: number) => {
     if (modalTask) {
-      const updatedSubtasks = modalTask.subtasks.filter((_, i) => i !== index);
+      const updatedSubtasks = modalTask.subtasks.filter((_:any, i:any) => i !== index);
       setModalTask({...modalTask, subtasks: updatedSubtasks});
     }
   };
@@ -184,10 +190,10 @@ const TaskModal: React.FC<TaskModalProps> = ({
               </div>
               <p className="body-l modal-description">{modalTask.description}</p>
               <p className="body-m subtasks-title">
-                Subtasks ({modalTask.subtasks.filter(item => item.isCompleted).length} of {modalTask.subtasks.length})
+                Subtasks ({modalTask.subtasks.filter((item:any) => item.isCompleted).length} of {modalTask.subtasks.length})
               </p>
               <ul className="body-m subtasks-list">
-                {modalTask.subtasks.map((subtask, index) => (
+                {modalTask.subtasks.map((subtask:any, index:any) => (
                   <li onClick={() => handleCheckboxChange(index)}
                       className={`subtasks-item ${subtask.isCompleted ? "completed" : ""}`} key={index}>
                     <input
@@ -230,7 +236,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
               </div>
               <div className="subtasks-wrapper">
                 <p className='body-m'>Subtasks</p>
-                {modalTask.subtasks.map((subtask, index) => (
+                {modalTask.subtasks.map((subtask:any, index:any) => (
                   <div key={index} className="input-wrapper-row">
                     <input
                       type="text"
@@ -295,7 +301,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
               </div>
               <div className="subtasks-wrapper">
                 <p className='body-m'>Subtasks</p>
-                {modalTask.subtasks.map((subtask, index) => (
+                {modalTask.subtasks.map((subtask:any, index:any) => (
                   <div key={index} className="input-wrapper-row">
                     <input
                       type="text"

@@ -126,7 +126,7 @@ body {font-family: var(--font), sans-serif;background-color: var(--bg-primary);}
 
 .ant-select-dropdown * {
   background: var(--bg-primary) !important;
-  color:white;
+  color:var(--text-primary);
 }
 
 
