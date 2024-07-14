@@ -1,8 +1,9 @@
 {
   "extends": "./tsconfig.app.json",
   "compilerOptions": {
-    "noEmit": false,
+    "noEmit": true,
     "skipLibCheck": true,
+    "allowImportingTsExtensions": true, // This option requires noEmit to be true
     "noErrorTruncation": true
   },
   "include": ["src"]
