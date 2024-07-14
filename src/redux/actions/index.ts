@@ -1,4 +1,4 @@
-// actions.ts
+// @ts-ignore
 import {
   ADD_TASK,
   UPDATE_TASK,

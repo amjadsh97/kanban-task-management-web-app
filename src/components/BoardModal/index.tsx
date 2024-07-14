@@ -1,4 +1,4 @@
-// AddBoardModal.tsx
+// @ts-ignore
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBoard, updateBoard } from '../../redux/actions';

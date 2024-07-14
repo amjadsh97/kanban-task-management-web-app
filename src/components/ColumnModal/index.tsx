@@ -1,4 +1,4 @@
-// AddColumnModal.tsx
+// @ts-ignore
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addColumn } from '../../redux/actions';

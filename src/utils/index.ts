@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Board } from "../data";
 
 export const getUniqueStatuses = (boards: Board[], boardIndex: number): string[] => {

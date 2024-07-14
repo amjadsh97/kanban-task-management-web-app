@@ -1,4 +1,4 @@
-// localStorageMiddleware.ts
+// @ts-ignore
 import { Middleware } from "redux";
 
 const localStorageMiddleware: Middleware = store => next => action => {

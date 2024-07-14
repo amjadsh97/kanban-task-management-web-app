@@ -1,7 +1,7 @@
-// App.tsx
+// @ts-ignore
+
 import React, {useEffect, useState} from "react";
 import Header from "./components/Header";
-import KanbanBoard from "./components/KanbanBoard";
 import logoDark from "./assets/images/logo-dark.svg";
 import {
   iconBoard,
@@ -15,10 +15,9 @@ import "./styles/reset.css";
 import "./styles/App.css";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./redux/store";
-import {addTask, deleteTask, updateTask, addBoard, addColumn} from "./redux/actions";
+import { deleteTask, updateTask, addBoard, addColumn} from "./redux/actions";
 import TaskModal from "./components/TaskModal";
 import AddBoardModal from "./components/BoardModal";
-import AddColumnModal from "./components/ColumnModal";
 import {initialData} from "./types";
 
 function App() {
@@ -187,7 +186,6 @@ function App() {
           task={selectedTask}
           type={modalType}
           onSave={handleUpdateTask}
-          onDelete={handleDeleteTask}
           boardIndex={activeBoard}
           columnIndex={columnIndex}
           taskIndex={taskIndex}

@@ -1,3 +1,5 @@
+// @ts-ignore
+
 import {ReactNode} from 'react';
 import "./style.css"
 

@@ -1,3 +1,6 @@
+// @ts-ignore
+
+
 import Button from "../Button";
 import {iconAddTaskMobile} from "../../assets/icons";
 

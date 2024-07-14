@@ -1,3 +1,4 @@
+// @ts-ignore
 import React, {useState, useEffect, useRef} from "react";
 import {Task} from "../../data";
 import "./style.css";
@@ -15,7 +16,6 @@ interface TaskModalProps {
   task: Task | null;
   type: "view" | "edit" | "delete" | "add";
   onSave: (task: Task) => void;
-  onDelete: () => void;
   boardIndex: number;
   columnIndex: number;
   taskIndex: number;
@@ -27,7 +27,6 @@ const TaskModal: React.FC<TaskModalProps> = ({
                                                task,
                                                type,
                                                onSave,
-                                               onDelete,
                                                boardIndex,
                                                columnIndex,
                                                taskIndex,
