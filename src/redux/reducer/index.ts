@@ -4,6 +4,7 @@
 import { TaskActionTypes, ColumnActionTypes, BoardActionTypes } from "./actions";
 import { ADD_TASK, UPDATE_TASK, DELETE_TASK, ADD_COLUMN, UPDATE_COLUMN, DELETE_COLUMN, ADD_BOARD, UPDATE_BOARD, DELETE_BOARD } from "../constants.ts";
 import {AppState} from "../../types";
+import {SET_INITIAL_STATE} from "../actions";
 
 const initialState:AppState = {
   boards: []
@@ -13,6 +14,8 @@ const initialState:AppState = {
 
 const rootReducer = (state = initialState, action: TaskActionTypes | ColumnActionTypes | BoardActionTypes) => {
   switch (action.type) {
+    case SET_INITIAL_STATE:
+      return { ...state, ...action.payload };
     case ADD_TASK: {
       const { boardIndex, columnIndex, task } = action.payload;
       const updatedBoards = [...state.boards];

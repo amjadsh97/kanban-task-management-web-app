@@ -153,3 +153,15 @@ export const deleteBoard = (boardIndex: number): DeleteBoardAction => ({
   type: DELETE_BOARD,
   payload: { boardIndex }
 });
+
+export const SET_INITIAL_STATE = 'SET_INITIAL_STATE';
+
+export interface SetInitialStateAction {
+  type: typeof SET_INITIAL_STATE;
+  payload: any;
+}
+
+export const setInitialState = (state: any): SetInitialStateAction => ({
+  type: SET_INITIAL_STATE,
+  payload: state,
+});

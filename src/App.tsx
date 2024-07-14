@@ -27,7 +27,6 @@ function App() {
   const [modalType, setModalType] = useState<"view" | "edit" | "delete" | "add">("view");
   const [selectedTask, setSelectedTask] = useState<any>(null);
   const [addBoardModalOpen, setAddBoardModalOpen] = useState(false);
-
   const data = useSelector((state: RootState) => state);
   const boards = data.boards
   const [boardIndex, setBoardIndex] = useState<number>(0);
@@ -91,8 +90,7 @@ function App() {
   }, [theme])
 
   return (
-    <div
-      className={`app ${showSidebar ? "sidebar-opened" : ""} ${theme === "dark" ? "dark" : ""}  ${mobileDropdownTrigger ? "mobile-dropdown-opened" : ""}`}>
+    <div className={`app ${showSidebar ? "sidebar-opened" : ""} ${theme === "dark" ? "dark" : ""}  ${mobileDropdownTrigger ? "mobile-dropdown-opened" : ""}`}>
       <Header mobileDropdownTrigger={mobileDropdownTrigger} setMobileDropdownTrigger={setMobileDropdownTrigger}
               activeBoardIndex={activeBoard} openModal={(type, task) => openModal(type, task)}/>
       <aside className='sidebar'>

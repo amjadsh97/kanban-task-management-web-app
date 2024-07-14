@@ -78,7 +78,7 @@ const Header: React.FC<HeaderProps> = ({
       </h1>
       <div className={`mobile-dropdown-trigger ${mobileDropdownTrigger ? "opened" : ""}`}
            onClick={() => setMobileDropdownTrigger(!mobileDropdownTrigger)}>
-        <h2>{currentBoard.name}</h2>
+        <h2>{currentBoard && currentBoard.name}</h2>
         {mobileDropdownTrigger ? <img src={iconChevronUp} alt=""/> :
           <img src={iconChevronDown} alt=""/>
         }
