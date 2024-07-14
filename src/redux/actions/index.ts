@@ -1,5 +1,4 @@
 // actions.ts
-import {Task} from "../../data";
 import {
   ADD_TASK,
   UPDATE_TASK,
@@ -11,6 +10,7 @@ import {
   UPDATE_BOARD,
   DELETE_BOARD
 } from "../constants.ts";
+import {Task} from "../../types";
 
 export interface AddTaskAction {
   type: typeof ADD_TASK;
