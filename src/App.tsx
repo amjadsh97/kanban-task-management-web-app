@@ -100,7 +100,7 @@ function App() {
           </h1>
           <span className='sidebar-title'>All Boards</span>
           <ul className='boards-list'>
-            {data.boards.map((board, index) => (
+            {data.boards.map((board:any, index:any) => (
               <li className={`board-item ${activeBoard === index ? "active" : ""}`}
                   onClick={() => setActiveBoard(index)} key={board.name}>
                 <img src={iconBoard} alt="Board Icon"/>
@@ -131,7 +131,7 @@ function App() {
         <div className="mobile-dropdown">
           <p className='body-l'>ALL BOARDS ({boards.length})</p>
           <ul className='boards-list'>
-            {data.boards.map((board, index) => (
+            {data.boards.map((board:any, index:any) => (
               <li className={`board-item ${activeBoard === index ? "active" : ""}`}
                   onClick={() => setActiveBoard(index)} key={board.name}>
                 <img src={iconBoard} alt="Board Icon"/>
